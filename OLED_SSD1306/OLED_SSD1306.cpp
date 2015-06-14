@@ -96,75 +96,88 @@ void OLED_SSD1306::ScrollStop( void ) {
 }
 
 void OLED_SSD1306::BlinkOFF(void) {
-  SendCommand( 0xA4 );    // Entire Display Normal
+  SendCommand( 0xA4 );  // Entire Display Normal
 }
 
 void OLED_SSD1306::BlinkON(void) {
-  SendCommand( 0xA5 );    // Entire Display ON
+  SendCommand( 0xA5 );  // Entire Display ON
 }
 
 void OLED_SSD1306::DisplayNormal(void) {
-  SendCommand( 0xA6 );    // Set Display Normal
+  SendCommand( 0xA6 );  // Set Display Normal
 }
 
 void OLED_SSD1306::DisplayInverse(void) {
-  SendCommand( 0xA7 );    // Set Display Inverse
+  SendCommand( 0xA7 );  // Set Display Inverse
 }
 
 void OLED_SSD1306::DisplayON(void) {
-  SendCommand( 0xAF );    // Set Display On
+  SendCommand( 0xAF );  // Set Display On
 }
 
 void OLED_SSD1306::DisplayOFF(void) {
-  SendCommand( 0xAE );    // Set Display Off
+  SendCommand( 0xAE );  // Set Display Off
 }
 
 void OLED_SSD1306::Init(void) {
 
   SendCommand( 0xAE );  // Set Display Off
 
-  SendCommand(0xD5);    // Set Display Clock Divide Ratio\Oscilator Frequency
-  SendCommand(0x80);    // the suggested ratio 0x80
-
-  SendCommand(0xA8);    // Set Multiplex Ratio
-  SendCommand(0x3F);
+  SendCommand( 0xA8 );  // Set Multiplex Ratio
+  SendCommand( 0x3F );
 
   SendCommand( 0xD3 );  // Set Display Offset
   SendCommand( 0x00 );  // no offset
 
-  SendCommand(0x40);    // Set Display Start Line
+  SendCommand( 0x40 );  // Set Display Start Line
 
-  SendCommand( 0x8D );  // Set Charge Pump
-  SendCommand( 0x14 );  // Vcc internal
+  SendCommand( 0xA1 );  // Set Segment Re-Map
 
-  SendCommand( 0xA1 );    // Set Segment Re-Map
+  SendCommand( 0xC8 );  // Set COM Output Scan Direction
 
-  SendCommand(0xC8);    // Set COM Output Scan Direction
-
-  SendCommand(0xDA);    // Set COM Pins Hardware Configuration
-  SendCommand(0x12);
+  SendCommand( 0xDA );  // Set COM Pins Hardware Configuration
+  SendCommand( 0x12 );
 
   SendCommand( 0x81 );  // Set Contrast Control
-  SendCommand( 0xCF );  // internal
-
-  SendCommand( 0xD9 );  // Set Pre-Charge Period
-  SendCommand( 0xF1 );  // internal
-
-  SendCommand(0xDB);    // Set VCOMH Deselect Level
-  SendCommand(0x40);
+  SendCommand( 0x7F );
 
   SendCommand( 0xA4 );  // Set Entire Display On/Off
 
   SendCommand( 0xA6 );  // Set Normal/Inverse Display
 
+  SendCommand( 0xD9 );  // Set Pre-Charge Period
+  SendCommand( 0xF1 );  // internal
+
+  SendCommand( 0xDB );  // Set VCOMH Deselect Level
+  SendCommand( 0x40 );
+
+  SendCommand( 0xD5 );  // Set Display Clock Divide Ratio\Oscilator Frequency
+  SendCommand( 0x80 );  // the suggested ratio 0x80
+
+  SendCommand( 0x8D );  // Set Charge Pump
+  SendCommand( 0x14 );  // Vcc internal
+
   SendCommand( 0x2E );  // Deactivate Scroll
 
+  SendCommand( 0x00 );  // Set Lower Column Start Address
+
+  SendCommand( 0x10 );  // Set Higher Column Start Address
+
+  // 00 - Horizontal Addressing Mode
+  // 01 - Vertical Addressing Mode
+  // 02 - Page Addressing Mode
   SendCommand( 0x20 );  // Set Memory Addressing Mode
-  SendCommand( 0x00 );  // Horizontal Addressing Mode
+  SendCommand( 0x00 );
 
   SendCommand( 0x21 );  // Set Column Address (only for horizontal or vertical mode)
   SendCommand( 0x00 );
   SendCommand( 0x7F );
+
+  SendCommand( 0x22 );  // Set Page Address
+  SendCommand( 0x00 );
+  SendCommand( 0x07 );
+
+  SendCommand( 0xB0 );  // Set Page Start Address for Page Addressing Mode
 
   SendCommand( 0xAF );  // Set Display On
 
